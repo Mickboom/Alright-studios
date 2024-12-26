@@ -1,4 +1,7 @@
-
+.header{
+  background-color: #000000;
+  color: #ddd;
+}
 body.light-mode {
   background-color: #ffffff;
   color: #000000;
