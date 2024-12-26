@@ -1,6 +1,12 @@
-.container{
+.header{
   background-color: #000000;
   color: #ddd;
+  display: block;
+  width: 80%;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid  #9e0505;
 }
 body.light-mode {
   background-color: #ffffff;
