@@ -13,17 +13,41 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="theme-toggle text-end py-3">
+    <button id="theme-switcher" class="btn btn-outline-light">Switch to Dark Mode</button>
+  </div>
+  
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-black">
     <div class="container">
       <a class="navbar-brand fw-bold text-danger" href="#"><h2>ALRIGHT MOVIES</h2></a>
-      <button class="banner" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
         <!-- Banner -->
   <div class="banner">
     <div class="overlay d-flex align-items-center">
       <div class="container text-white">
+        <p class="lead">Discover the latest and trending movies to watch and download.</p>
+      <div class="collapse navbar-collapse" id="navbarNav">
+      </div>
+    </div>
+  </nav>
+
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="features.html">Movies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">TV Shows</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="account.html">Account </a>
+          </li>
+        </ul>
         <form class="d-flex">
           <div class="search-section bg-light py-5">
             <div class="container">
@@ -48,28 +72,7 @@
                   <button type="submit" class="btn btn-danger w-100">Search</button>
                 </div>
               </form>
-   
-        <p class="lead">Discover the latest and trending movies to watch and download.</p>
-      <div class="collapse navbar-collapse" id="navbarNav">
-      </div>
-    </div>
-  </nav>
-
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="home.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="features.html">Movies</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">TV Shows</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="account.html">Account </a>
-          </li>
-        </ul>
-          </div>
+            </div>
           </div>
           
           </form>
