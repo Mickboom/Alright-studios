@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const apiKey = "69398c8228ad0ef2282393e5c5e98323";
+    const apiKey = "69398c8228ad0ef2282393e5c5e98323=";
 
     function fetchMovies(category, elementId) {
         fetch(`https://api.themoviedb.org/3/movie/${category}?api_key=${apiKey}`)
@@ -52,4 +52,45 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchMovies("popular", "trending");
     fetchMovies("top_rated", "top-rated");
     fetchMovies("upcoming", "upcoming");
-});
+});const API_URL = "69398c8228ad0ef2282393e5c5e98323"; // Badilisha na API yako halisi
+
+async function searchMovies() {
+    let input = document.getElementById("searchInput").value.trim();
+        let resultsContainer = document.getElementById("searchResults");
+            
+                resultsContainer.innerHTML = "";
+                    if (input === "") {
+                            resultsContainer.style.display = "none";
+                                    return;
+                                        }
+
+                                            try {
+                                                    let response = await fetch(API_URL + encodeURIComponent(input));
+                                                            let movies = await response.json();
+
+                                                                    if (movies.length === 0) {
+                                                                                resultsContainer.innerHTML = "<div class='result-item'>Hakuna matokeo</div>";
+                                                                                            resultsContainer.style.display = "block";
+                                                                                                        return;
+                                                                                                                }
+
+                                                                                                                        movies.forEach(movie => {
+                                                                                                                                    let movieDiv = document.createElement("div");
+                                                                                                                                                movieDiv.className = "result-item";
+                                                                                                                                                            movieDiv.innerHTML = `
+                                                                                                                                                                            <img src="${movie.poster}" alt="${movie.title}">
+                                                                                                                                                                                            <div>
+                                                                                                                                                                                                                <strong>${movie.title}</strong> (${movie.year})<br>
+                                                                                                                                                                                                                                    <small>${movie.genre}</small>
+                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                `;
+                                                                                                                                                                                                                                                                            movieDiv.onclick = () => window.location.href = `/movie/${movie.id}`;
+                                                                                                                                                                                                                                                                                        resultsContainer.appendChild(movieDiv);
+                                                                                                                                                                                                                                                                                                });
+
+                                                                                                                                                                                                                                                                                                        resultsContainer.style.display = "block";
+
+                                                                                                                                                                                                                                                                                                            } catch (error) {
+                                                                                                                                                                                                                                                                                                                    console.error("Hitilafu kwenye utafutaji:", error);
+                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                        }
