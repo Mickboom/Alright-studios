@@ -1,80 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alright Movies - Netflix Style</title>
-    <link rel="stylesheet" href="styles .css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6291587953834794"
-         crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ludo Movies</title>
+<style>
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#000;color:#fff}
+
+/* NAVBAR */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,.95);position:fixed;top:0;width:100%;z-index:100}
+.logo{color:#e50914;font-size:22px;font-weight:bold}
+.nav-links{display:flex;gap:15px}
+.nav-links a{color:#ccc;text-decoration:none;font-size:14px}
+.nav-links a:hover{color:#fff}
+
+.search-box{display:flex}
+.search-box input{background:#111;border:1px solid #333;color:#fff;padding:6px;border-radius:4px 0 0 4px;width:160px}
+.search-box button{background:#e50914;border:none;color:#fff;padding:6px 10px;border-radius:0 4px 4px 0;cursor:pointer}
+
+/* HERO */
+.hero{height:85vh;background-size:cover;background-position:center;padding:120px 20px 20px;position:relative}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.9),rgba(0,0,0,.2))}
+.hero-content{position:relative;max-width:500px}
+.hero h1{font-size:38px;margin:0 0 10px}
+.hero p{color:#ccc;font-size:14px}
+.hero button{margin-top:10px;padding:10px 16px;border:none;border-radius:5px;cursor:pointer}
+.play{background:#fff;color:#000}
+
+/* SECTIONS */
+.section{padding:20px}
+.section h2{margin-bottom:10px}
+.row{display:flex;gap:12px;overflow-x:auto}
+.row::-webkit-scrollbar{display:none}
+.poster{min-width:140px;cursor:pointer;transition:.3s}
+.poster:hover{transform:scale(1.15)}
+.poster img{width:100%;border-radius:4px}
+
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);justify-content:center;align-items:center;z-index:200}
+iframe{width:90%;max-width:900px;height:480px;border:none}
+
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero{height:60vh;padding-top:90px}
+  .hero h1{font-size:24px}
+  iframe{height:240px}
+}
+</style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container">
-            <a class="logo" href="#">🎬 Alright Movies</a>
-            <div class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Movies</a>
-                <a href="#">TV Shows</a>
-                <a href="#">My List</a>
-                <a href="#">Account</a>
-            </div>
-        </div>
-    </nav>
-<div class="search-container">
-        <input type="text" id="searchInput" placeholder="Tafuta filamu..." onkeyup="searchMovies()">
-            <div id="searchResults"></div>
-            </div>
+<!-- NAV -->
+<div class="navbar">
+  <div class="logo">LUDO</div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#shows">Shows</a>
+    <a href="#movies">Movies</a>
+    <a href="#mylist">My List</a>
+  </div>
+  <div class="search-box">
+    <input id="searchInput" placeholder="Search">
+    <button onclick="searchMovies()">🔍</button>
+  </div>
+</div>
 
-    <!-- Hero Section -->
-    <div class="hero" id="hero-section">
-        <div class="overlay">
-            <h1 id="hero-title">Loading...</h1>
-            <p id="hero-description">Please wait while we load the best movies.</p>
-            <button class="btn btn-play" onclick="playHeroMovie()">▶ Play</button>
-            <button class="btn btn-info" onclick="showHeroTrailer()">ℹ More Info</button>
-        </div>
-    </div>
+<!-- HOME -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1 id="heroTitle"></h1>
+    <p id="heroOverview"></p>
+    <button class="play" onclick="playTrailer(heroMovieId)">▶ Play</button>
+  </div>
+</section>
 
-    <!-- Movies Section -->
-    <div class="container">
-        <h2>Trending Now</h2>
-        <div class="movie-row" id="trending"></div>
+<!-- SHOWS -->
+<section class="section" id="shows">
+  <h2>Trending Shows</h2>
+  <div class="row" id="showsRow"></div>
+</section>
 
-        <h2>Top Rated</h2>
-        <div class="movie-row" id="top-rated"></div>
+<!-- MOVIES -->
+<section class="section" id="movies">
+  <h2>Popular Movies (Watch Trailers)</h2>
+  <div class="row" id="moviesRow"></div>
+</section>
 
-        <h2>Upcoming Movies</h2>
-        <div class="movie-row" id="upcoming"></div>
-    </div>
+<!-- INLINE TRAILER -->
+<section class="section" id="trailerSection" style="display:none">
+  <h2 id="trailerTitle">Trailer</h2>
+  <div style="position:relative;padding-top:56.25%;background:#000;border-radius:10px;overflow:hidden">
+    <iframe id="inlineTrailer" style="position:absolute;top:0;left:0;width:100%;height:100%" allow="autoplay;encrypted-media" allowfullscreen></iframe>
+  </div>
+</section>
 
-    <!-- Trailer & Ad Modal -->
-    <div id="trailerModalContainer"></div>
+<!-- MY LIST -->
+<section class="section" id="mylist">
+  <h2>My List</h2>
+  <p style="color:#777">Hakuna movie bado</p>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-links">
-                <a href="#">Home</a>
-                <a href="#">Movies</a>
-                <a href="#">TV Shows</a>
-                <a href="#">My List</a>
-                <a href="#">Account</a>
-            </div>
-            <p>© 2025 Alright Movies. All Rights Reserved.</p>
-            <div class="footer-icons">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-        </div>
-    </footer>
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="closeTrailer()">
+  <iframe id="trailerFrame" allow="autoplay;encrypted-media" allowfullscreen></iframe>
+</div>
 
-    <script src="app.js"></script>
+<script>
+const API_KEY='69398c8228ad0ef2282393e5c5e98323';
+const BASE_URL='https://api.themoviedb.org/3';
+const IMG='https://image.tmdb.org/t/p/original';
+let heroMovieId=null;
+
+async function loadHero(){
+ const r=await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+ const d=await r.json();
+ const m=d.results[0];
+ heroMovieId=m.id;
+ document.getElementById('home').style.backgroundImage=`url(${IMG+m.backdrop_path})`;
+ heroTitle.textContent=m.title;
+ heroOverview.textContent=m.overview;
+}
+
+async function loadRow(url,el){
+ const r=await fetch(url);const d=await r.json();el.innerHTML='';
+ d.results.forEach(m=>{if(!m.poster_path)return;
+  const div=document.createElement('div');div.className='poster';
+  div.innerHTML=`<img src="https://image.tmdb.org/t/p/w300${m.poster_path}">`;
+  div.onclick=()=>playTrailer(m.id);el.appendChild(div);
+ });
+}
+
+async function playTrailer(id){
+ const r=await fetch(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}`);
+ const d=await r.json();const t=d.results.find(v=>v.site==='YouTube');
+ if(t){trailerFrame.src=`https://www.youtube.com/embed/${t.key}?autoplay=1&mute=1`;modal.style.display='flex';}
+}
+function closeTrailer(){modal.style.display='none';trailerFrame.src='';}
+
+async function searchMovies(){
+ const q=searchInput.value;if(!q)return;
+ const r=await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${q}`);
+ const d=await r.json();moviesRow.innerHTML='';
+ d.results.forEach(m=>{if(!m.poster_path)return;
+  const div=document.createElement('div');div.className='poster';
+  div.innerHTML=`<img src="https://image.tmdb.org/t/p/w300${m.poster_path}">`;
+  div.onclick=()=>playTrailer(m.id);moviesRow.appendChild(div);
+ });
+ location.href='#movies';
+}
+
+loadHero();
+loadRow(`${BASE_URL}/trending/tv/week?api_key=${API_KEY}`,showsRow);
+loadRow(`${BASE_URL}/movie/popular?api_key=${API_KEY}`,moviesRow);
+</script>
 </body>
 </html>
