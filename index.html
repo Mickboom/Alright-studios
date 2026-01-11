@@ -392,17 +392,17 @@ function closeModal(){
  modal.style.display='none';
  trailerFrame.src='';
 }
-<footer>
-    © 2026 | LUDO MOVIES • ALL RIGHTS RESERVED
-</footer>
+
 function searchMovies(){
  const q=searchInput.value.toLowerCase();
  const filtered=allMovies.filter(m=>m.title.toLowerCase().includes(q));
  renderMovies(filtered);
 }
-
 init();
 </script>
-
+<footer>
+    © 2026 | LUDO MOVIES• ALL RIGHTS RESERVED
+</footer>
+}
 </body>
 </html>
