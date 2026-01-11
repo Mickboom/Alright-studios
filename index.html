@@ -207,6 +207,73 @@ body{
  border-radius:18px;
  box-shadow:0 0 30px rgba(0,198,255,.35);
 }
+  .custom-footer {
+  background: linear-gradient(135deg, #6a0dad, #1e90ff); /* zambarau na blue */
+  color: white;
+  padding: 40px 20px 20px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-about,
+.footer-links,
+.footer-contact {
+  flex: 1 1 250px;
+}
+
+.footer-about h3,
+.footer-links h4,
+.footer-contact h4 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #ffd700; /* kubadilisha rangi kidogo kwenye hover */
+}
+
+.footer-contact p {
+  margin: 5px 0;
+}
+
+.footer-social a {
+  display: inline-block;
+  margin-right: 10px;
+  color: white;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: #ffd700;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+  }
 </style>
 </head>
 <body>
@@ -325,7 +392,9 @@ function closeModal(){
  modal.style.display='none';
  trailerFrame.src='';
 }
-
+<footer>
+    © 2026 | LUDO MOVIES • ALL RIGHTS RESERVED
+</footer>
 function searchMovies(){
  const q=searchInput.value.toLowerCase();
  const filtered=allMovies.filter(m=>m.title.toLowerCase().includes(q));
