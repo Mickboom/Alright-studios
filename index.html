@@ -303,6 +303,19 @@ body{
  border-radius:16px;
  box-shadow:0 0 30px rgba(255,120,0,.6);
   }
+
+  .footer .ad-rotate{
+ max-width:320px;
+ margin:20px auto;
+ display:flex;
+ justify-content:center;
+}
+
+.footer .ad-rotate iframe{
+ height:100px !important;
+ border-radius:12px;
+ box-shadow:0 0 20px rgba(255,120,0,.5);
+}
 </style>
 </head>
 <body>
@@ -354,19 +367,7 @@ body{
 <!-- MODAL -->
   <div class="modal-content">
 
- <!-- MODAL HEADER AD -->
- <div class="modal-ad-header">
-  <script>
-   atOptions = {
-    'key' : 'be2f44b388bc791825832440328a762f',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-   };
-  </script>
-  <script src="https://mommyfollower.com/be2f44b388bc791825832440328a762f/invoke.js"></script>
- </div>
+
 <div class="modal" id="modal" onclick="closeModal()">
  <div class="modal-content" onclick="event.stopPropagation()">
   <div class="close" onclick="closeModal()">❌</div>
@@ -452,7 +453,7 @@ init();
   atOptions = {
    'key' : 'be2f44b388bc791825832440328a762f',
    'format' : 'iframe',
-   'height' : 250,
+   'height' : 100,
    'width' : 300,
    'params' : {}
   };
