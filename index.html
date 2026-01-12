@@ -480,52 +480,5 @@ function searchMovies(){
  renderMovies(filtered);
 }
 init();
-const nativeAds = [
-  {
-    key: 'ec601ba5985c0794e4f41d70fddd5790',
-    container: 'container-ec601ba5985c0794e4f41d70fddd5790'
-  },
-  {
-    key: 'KEY_YAKO_2',
-    container: 'container-KEY2'
-  }
-];
-
-let nativeIndex = 0;
-
-function loadNativeAd(){
-  const ad = nativeAds[nativeIndex];
-  const adDiv = document.getElementById(ad.container);
-  if(!adDiv) return;
-
-  adDiv.innerHTML = `<script async="async" data-cfasync="false" src="https://mommyfollower.com/${ad.key}/invoke.js"></script>`;
-
-  nativeIndex = (nativeIndex + 1) % nativeAds.length;
-}
-
-// load first ad
-loadNativeAd();
-
-// rotate every 15 sec
-setInterval(loadNativeAd,15000);
-</script>
-<!-- FOOTER ADSTERRA BANNER -->
-<div class="ad-banner footer-ad">
- <script>
-  atOptions = {
-   'key' : 'be2f44b388bc791825832440328a762f',
-   'format' : 'iframe',
-   'height' : 100,
-   'width' : 250,
-   'params' : {}
-  };
-   <div class="footer-native-ad">
-  <script async="async" data-cfasync="false" src="https://mommyfollower.com/ec601ba5985c0794e4f41d70fddd5790/invoke.js"></script>
-  <div id="container-ec601ba5985c0794e4f41d70fddd5790"></div>
-</div>
- </script>
- <script src="https://mommyfollower.com/be2f44b388bc791825832440328a762f/invoke.js"></script>
-</div>
-
 </body>
 </html>
