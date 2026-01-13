@@ -46,16 +46,45 @@ body{
 .search-bar{
  position:relative;
 }
-.search-bar input{
- background:#111;
- border:1px solid #333;
- color:#fff;
- padding:8px 16px;
- width:220px;
- border-radius:30px;
- outline:none;
+
+.search-results{
+ position:absolute;
+ top:48px;
+ left:0;
+ width:100%;
+ background:#050510;
+ border-radius:14px;
+ box-shadow:0 0 30px rgba(0,198,255,.4);
+ max-height:360px;
+ overflow-y:auto;
+ display:none;
+ z-index:3000;
+}
+
+.search-item{
+ display:flex;
+ gap:10px;
+ padding:10px;
+ cursor:pointer;
  transition:.3s;
 }
+
+.search-item img{
+ width:45px;
+ height:65px;
+ object-fit:cover;
+ border-radius:6px;
+}
+
+.search-item:hover{
+ background:rgba(255,255,255,.08);
+}
+
+.search-item span{
+ font-size:14px;
+ color:#fff;
+}
+
 
 /* HERO */
 .hero{
