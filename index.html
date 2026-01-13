@@ -344,8 +344,8 @@ body{
 <div class="navbar">
  <div class="logo">LUDO</div>
  <div class="search-bar">
-  <input id="searchInput" placeholder="Search movies..." onkeyup="searchMovies()">
- </div>
+ <input id="searchInput" type="text" placeholder="Search movies..." autocomplete="off">
+ <div class="search-results" id="searchResults"></div>
 </div>
 
 <!-- HERO -->
@@ -477,6 +477,64 @@ function searchMovies(){
  renderMovies(filtered);
 }
 init();
+  const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+let searchTimeout = null;
+
+searchInput.addEventListener('input', () => {
+ clearTimeout(searchTimeout);
+
+ const query = searchInput.value.trim();
+
+ if(query.length < 2){
+  searchResults.style.display = 'none';
+  return;
+ }
+
+ searchTimeout = setTimeout(() => {
+  searchMoviesAPI(query);
+ }, 400);
+});
+
+async function searchMoviesAPI(query){
+ try{
+  const res = await fetch(`${API}/search/movie?api_key=${KEY}&query=${encodeURIComponent(query)}`);
+  const data = await res.json();
+
+  showSearchResults(data.results);
+ }catch(err){
+  console.error(err);
+ }
+}
+
+function showSearchResults(movies){
+ searchResults.innerHTML = '';
+
+ if(!movies || movies.length === 0){
+  searchResults.innerHTML = `<div class="search-item">No results found</div>`;
+  searchResults.style.display = 'block';
+  return;
+ }
+
+ movies.slice(0,8).forEach(movie=>{
+  if(!movie.poster_path) return;
+
+  searchResults.innerHTML += `
+   <div class="search-item" onclick="openTrailer(${movie.id})">
+    <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}">
+    <span>${movie.title}</span>
+   </div>
+  `;
+ });
+
+ searchResults.style.display = 'block';
+  }
+  document.addEventListener('click', (e)=>{
+ if(!e.target.closest('.search-bar')){
+  searchResults.style.display = 'none';
+ }
+});
 </script>
 </body>
 </html>
