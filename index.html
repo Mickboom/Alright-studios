@@ -370,7 +370,7 @@ function closeModal(){
 function searchMovies(){
  const q=searchInput.value.toLowerCase();
  const filtered=allMovies.filter(m=>m.title.toLowerCase().includes(q));
- renderMovies(filtered);
+ renderMovies(allmovies);
 }
 
 init();
