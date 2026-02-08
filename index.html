@@ -372,7 +372,19 @@ function searchMovies(){
  const filtered=allMovies.filter(m=>m.title.toLowerCase().includes(q));
  renderMovies(allmovies);
 }
+async function searchMovies(){
+ const q = searchInput.value.trim();
 
+ if(q.length < 3){
+   renderMovies(allMovies);
+   return;
+ }
+
+ const res = await fetch(`${API}/search/movie?api_key=${KEY}&query=${encodeURIComponent(q)}`);
+ const data = await res.json();
+
+ renderMovies(data.results);
+  }
 init();
 </script>
 <!-- ADSTERRA SOCIAL BAR -->
